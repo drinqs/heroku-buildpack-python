@@ -65,7 +65,7 @@ if [ ! "$SKIP_PIPENV_INSTALL" ]; then
             /app/.heroku/python/bin/pipenv install --system --skip-lock 2>&1 | indent
 
         else
-            pipenv-to-pip Pipfile.lock > requirements.txt
+            pipenv lock -r > requirements.txt
             cp requirements.txt .heroku/python/requirements-declared.txt
             openssl dgst -sha256 Pipfile.lock > .heroku/python/Pipfile.lock.sha256
 
@@ -75,5 +75,5 @@ if [ ! "$SKIP_PIPENV_INSTALL" ]; then
     fi
 else
     export SKIP_PIP_INSTALL=1
-    pipenv-to-pip Pipfile.lock > requirements.txt
+    pipenv lock -r > requirements.txt
 fi
